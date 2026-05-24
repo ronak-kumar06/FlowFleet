@@ -4,7 +4,7 @@ const User = require('./src/models/User');
 
 const seedUsers = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/flowfleet');
+    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/flowfleet');
     
     // Clear existing users to prevent duplicates if run multiple times
     await User.deleteMany({});
