@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client';
 
-const URL = 'https://localhost:5000'; // Connect to backend server
+const URL = 'https://flowfleet.onrender.com/'; // Connect to backend server
 
 export const socket = io(URL, {
   autoConnect: false, // We'll connect manually when user logs in

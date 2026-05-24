@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://localhost:5000/api', // HTTPS as requested
+  baseURL: 'https://flowfleet.onrender.com/api', // Appended /api for backend routes
 });
 
 // Intercept requests to add the auth token
