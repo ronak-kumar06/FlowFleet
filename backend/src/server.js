@@ -1,7 +1,9 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const http = require('http');
+const https = require('https');
+const fs = require('fs');
+const path = require('path');
 const connectDB = require('./config/db');
 const socketConfig = require('./sockets/socket');
 
@@ -9,7 +11,13 @@ const socketConfig = require('./sockets/socket');
 const authRoutes = require('./routes/authRoutes');
 
 const app = express();
-const server = http.createServer(app);
+
+const options = {
+  key: fs.readFileSync(path.join(__dirname, 'config', 'certs', 'server.key')),
+  cert: fs.readFileSync(path.join(__dirname, 'config', 'certs', 'server.cert'))
+};
+
+const server = https.createServer(options, app);
 
 // Initialize DB and Socket.IO
 connectDB();
