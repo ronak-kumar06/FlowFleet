@@ -6,6 +6,15 @@ FlowFleet is a modern, end-to-end SaaS operations platform designed for manufact
 
 ---
 
+## 🌐 Live Demo
+
+- **Frontend Application:** [https://flow-fleet-flax.vercel.app](https://flow-fleet-flax.vercel.app)
+- **Backend API:** [https://flowfleet.onrender.com/api](https://flowfleet.onrender.com/api)
+
+> *Note: Since this is hosted on a free tier, the backend may take 30-50 seconds to spin up on initial load. Please refer to the Demo Credentials section below to log in.*
+
+---
+
 ## 🌟 Key Features
 
 - **Role-Based Access Control (RBAC)**: Secure access tailored for Admins, Dispatchers, Drivers, and Clients.
