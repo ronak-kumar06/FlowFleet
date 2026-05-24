@@ -8,6 +8,7 @@ import Unauthorized from './pages/Unauthorized';
 import Trucks from './pages/Trucks';
 import Shipments from './pages/Shipments';
 import Requests from './pages/Requests';
+import LiveMap from './pages/LiveMap';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="shipments" element={<Shipments />} />
           <Route path="requests" element={<Requests />} />
           <Route path="trucks" element={<Trucks />} />
+          <Route path="map" element={<LiveMap />} />
         </Route>
       </Routes>
     </Router>

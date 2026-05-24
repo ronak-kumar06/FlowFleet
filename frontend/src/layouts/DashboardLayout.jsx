@@ -1,6 +1,8 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/useAuthStore';
-import { LogOut, Package, LayoutDashboard, Truck, ClipboardList } from 'lucide-react';
+import { LogOut, Package, LayoutDashboard, Truck, ClipboardList, Map as MapIcon } from 'lucide-react';
+import { socket } from '../services/socket';
+import { useEffect } from 'react';
 
 const DashboardLayout = () => {
   const { user, logout } = useAuthStore();
@@ -8,15 +10,41 @@ const DashboardLayout = () => {
 
   const handleLogout = () => {
     logout();
+    socket.disconnect();
     navigate('/login');
   };
 
-  const navItems = [
+  useEffect(() => {
+    if (user) {
+      socket.connect();
+    }
+    return () => {
+      socket.disconnect();
+    };
+  }, [user]);
+
+  const allNavItems = [
     { label: 'Dashboard', icon: LayoutDashboard, path: '/' },
     { label: 'Shipments', icon: Package, path: '/shipments' },
     { label: 'Requests', icon: ClipboardList, path: '/requests' },
     { label: 'Trucks', icon: Truck, path: '/trucks' },
+    { label: 'Live Map', icon: MapIcon, path: '/map' },
   ];
+
+  const getNavItems = () => {
+    switch (user?.role) {
+      case 'Client':
+        return allNavItems.filter(item => ['Dashboard', 'Shipments', 'Requests'].includes(item.label));
+      case 'Driver':
+        return allNavItems.filter(item => ['Dashboard', 'Shipments'].includes(item.label));
+      case 'Dispatcher':
+      case 'Admin':
+      default:
+        return allNavItems;
+    }
+  };
+
+  const navItems = getNavItems();
 
   return (
     <div className="min-h-screen bg-slate-50 flex">

@@ -61,18 +61,26 @@ const registerUser = async (req, res) => {
 // @route   GET /api/auth/me
 // @access  Private
 const getUserProfile = async (req, res) => {
-  const user = await User.findById(req.user._id);
-
+  const user = await User.findById(req.user._id).select('-password');
   if (user) {
-    res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-    });
+    res.json(user);
   } else {
     res.status(404).json({ message: 'User not found' });
   }
 };
 
-module.exports = { authUser, registerUser, getUserProfile };
+const getDrivers = async (req, res) => {
+  try {
+    const drivers = await User.find({ role: 'Driver', isActive: true }).select('-password');
+    res.json(drivers);
+  } catch (error) {
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
+
+module.exports = {
+  authUser,
+  registerUser,
+  getUserProfile,
+  getDrivers,
+};

@@ -27,9 +27,8 @@ const Shipments = () => {
       if (user?.role === 'Dispatcher' || user?.role === 'Admin') {
         const truckRes = await api.get('/trucks');
         setTrucks(truckRes.data.filter(t => t.status === 'Available'));
-        // Mock drivers or fetch from a real users endpoint
-        // For now, assuming an endpoint /users exists (Wait, I added /auth/users or something? No, I added /api/auth/me, not /users. Let's mock drivers for now).
-        setDrivers([{ _id: 'mock-driver-1', name: 'John Doe' }, { _id: 'mock-driver-2', name: 'Jane Smith' }]);
+        const driverRes = await api.get('/auth/drivers');
+        setDrivers(driverRes.data);
       }
     } catch (error) {
       console.error("Failed to fetch shipments", error);

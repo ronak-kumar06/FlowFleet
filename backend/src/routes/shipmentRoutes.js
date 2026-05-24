@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {
   createDeliveryRequest,
+  getAllDeliveryRequests,
   reviewDeliveryRequest,
   getShipments,
   assignShipment,
@@ -13,6 +14,7 @@ router.route('/')
   .get(protect, getShipments); // Access control handled inside controller
 
 router.route('/request')
+  .get(protect, authorize('Dispatcher', 'Admin'), getAllDeliveryRequests)
   .post(protect, authorize('Client'), createDeliveryRequest);
 
 router.route('/request/:id/review')

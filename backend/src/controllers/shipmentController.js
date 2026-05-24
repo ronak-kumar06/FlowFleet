@@ -62,6 +62,18 @@ const reviewDeliveryRequest = async (req, res) => {
   }
 };
 
+// @desc    Get all delivery requests
+// @route   GET /api/shipments/request
+// @access  Private (Dispatcher, Admin)
+const getAllDeliveryRequests = async (req, res) => {
+  try {
+    const requests = await DeliveryRequest.find().populate('clientId', 'name email').sort({ createdAt: -1 });
+    res.json(requests);
+  } catch (error) {
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
+
 // @desc    Get shipments (and requests)
 // @route   GET /api/shipments
 // @access  Private
@@ -154,6 +166,7 @@ const updateShipmentStatus = async (req, res) => {
 
 module.exports = {
   createDeliveryRequest,
+  getAllDeliveryRequests,
   reviewDeliveryRequest,
   getShipments,
   assignShipment,

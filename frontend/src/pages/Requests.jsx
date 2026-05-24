@@ -22,22 +22,12 @@ const Requests = () => {
 
   const fetchRequests = async () => {
     try {
-      const { data } = await api.get('/shipments');
-      // If client, data has { requests, shipments }. If dispatcher, we should filter shipments?
-      // Wait, the backend GET /api/shipments currently returns all Shipments for dispatchers.
-      // Dispatchers need to see requests to approve them.
-      // Ah! The backend for `GET /api/shipments` for Dispatcher/Admin only returns Shipments, not DeliveryRequests!
-      // I should fetch requests via a separate endpoint or just filter on the frontend if I update the backend.
-      // For now, let's assume the backend will be updated to return both, or we handle the client side differently.
       if (user?.role === 'Client') {
+        const { data } = await api.get('/shipments');
         setRequests(data.requests || []);
       } else {
-        // We will need to update the backend to fetch all requests for Dispatcher.
-        // For now, let's just use what we have or mock it.
-        // Let's assume we can fetch them. (I will update the backend if needed).
-        const res = await api.get('/shipments');
-        // This returns shipments for dispatcher. I'll need to fetch DeliveryRequests manually.
-        // We didn't build a GET /api/shipments/requests endpoint for Dispatchers. 
+        const { data } = await api.get('/shipments/request');
+        setRequests(data);
       }
     } catch (error) {
       console.error("Failed to fetch requests", error);
