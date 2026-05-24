@@ -5,6 +5,10 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Unauthorized from './pages/Unauthorized';
 
+import Trucks from './pages/Trucks';
+import Shipments from './pages/Shipments';
+import Requests from './pages/Requests';
+
 function App() {
   return (
     <Router>
@@ -22,9 +26,9 @@ function App() {
           }
         >
           <Route index element={<Dashboard />} />
-          <Route path="shipments" element={<div className="p-4">Shipments (Coming in Phase 5)</div>} />
-          <Route path="requests" element={<div className="p-4">Requests (Coming in Phase 5)</div>} />
-          <Route path="trucks" element={<div className="p-4">Trucks (Coming in Phase 5)</div>} />
+          <Route path="shipments" element={<Shipments />} />
+          <Route path="requests" element={<Requests />} />
+          <Route path="trucks" element={<Trucks />} />
         </Route>
       </Routes>
     </Router>
