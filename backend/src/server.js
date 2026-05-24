@@ -9,6 +9,9 @@ const socketConfig = require('./sockets/socket');
 
 // Routes
 const authRoutes = require('./routes/authRoutes');
+const truckRoutes = require('./routes/truckRoutes');
+const shipmentRoutes = require('./routes/shipmentRoutes');
+const analyticsRoutes = require('./routes/analyticsRoutes');
 
 const app = express();
 
@@ -29,6 +32,9 @@ app.use(express.json());
 
 // API Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/trucks', truckRoutes);
+app.use('/api/shipments', shipmentRoutes);
+app.use('/api/analytics', analyticsRoutes);
 
 // Basic route
 app.get('/', (req, res) => {
