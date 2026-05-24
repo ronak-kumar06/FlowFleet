@@ -2,20 +2,15 @@ const mongoose = require('mongoose');
 
 const shipmentSchema = new mongoose.Schema({
   trackingId: { type: String, required: true, unique: true },
-  origin: {
-    address: { type: String, required: true },
-    lat: { type: Number },
-    lng: { type: Number }
+  requestId: { type: mongoose.Schema.Types.ObjectId, ref: 'DeliveryRequest', required: true },
+  priority: { type: String, enum: ['Unassigned', 'Low', 'Medium', 'High', 'Critical'], default: 'Unassigned' },
+  status: { 
+    type: String, 
+    enum: ['Assigned', 'In Transit', 'Delivered', 'Delayed', 'Cancelled'], 
+    default: 'Assigned' 
   },
-  destination: {
-    address: { type: String, required: true },
-    lat: { type: Number },
-    lng: { type: Number }
-  },
-  weight: { type: Number, required: true }, // in tons
-  priority: { type: String, enum: ['Low', 'Medium', 'High', 'Critical'], default: 'Medium' },
-  status: { type: String, enum: ['Pending', 'Allocated', 'In Transit', 'Delivered', 'Delayed'], default: 'Pending' },
-  truckId: { type: mongoose.Schema.Types.ObjectId, ref: 'Truck' },
+  assignedTruck: { type: mongoose.Schema.Types.ObjectId, ref: 'Truck' },
+  assignedDriver: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   dispatchedAt: { type: Date },
   estimatedDeliveryTime: { type: Date },
   actualDeliveryTime: { type: Date },

@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 
 const truckSchema = new mongoose.Schema({
   registrationNumber: { type: String, required: true, unique: true },
-  driverId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   capacity: { type: Number, required: true }, // Weight in tons
   fuelEfficiency: { type: Number }, // km/liter
   status: { type: String, enum: ['Available', 'In Transit', 'Maintenance'], default: 'Available' },
