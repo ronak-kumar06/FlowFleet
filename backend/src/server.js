@@ -55,7 +55,12 @@ app.get('/', (req, res) => {
   res.send('FlowFleet API is running...');
 });
 
-const PORT = process.env.PORT || 5000;
+// Health check route for Render
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
+
+const PORT = parseInt(process.env.PORT, 10) || 5000;
 
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
