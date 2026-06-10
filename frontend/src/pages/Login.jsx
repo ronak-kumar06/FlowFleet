@@ -36,8 +36,11 @@ const Login = () => {
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-1.5">Email</label>
+            <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-1.5">Email</label>
             <input
+              id="email"
+              name="email"
+              autoComplete="email"
               type="email"
               required
               value={email}
@@ -48,8 +51,11 @@ const Login = () => {
           </div>
           
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-1.5">Password</label>
+            <label htmlFor="password" className="block text-sm font-medium text-slate-300 mb-1.5">Password</label>
             <input
+              id="password"
+              name="password"
+              autoComplete="current-password"
               type="password"
               required
               value={password}
